@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ssv2pd
+  labels:
+    app: ssv2pd
+
+spec:
+  containers:
+    - name: ssv2pd
+      image: imbatjd/ssv2pd
+      ports:
+        - containerPort: 8388
+      env:
+        - name: PASSWORD
+          value: <your_password>
+      restartPolicy: Always
+      # resources:
+      #   requests:
+      #     cpu: 5m
+      #     memory: 64Mi
+      #   limits:
+      #     cpu: 100m
+      #     memory: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ssv2pd
+
+spec:
+  selector:
+    app: ssv2pd
+  ports:
+  - port: 8388
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ssv2pd
+
+spec:
+  rules:
+  - host: <yourhost.example.com>
+    http:
+      paths:
+      - backend:
+          serviceName: ssv2pd
+          servicePort: 8388
