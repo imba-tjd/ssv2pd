@@ -14,14 +14,13 @@ spec:
       env:
         - name: PASSWORD
           value: <your_password>
-      restartPolicy: Always
-      # resources:
-      #   requests:
-      #     cpu: 5m
-      #     memory: 64Mi
-      #   limits:
-      #     cpu: 100m
-      #     memory: 128Mi
+      resources:
+        requests:
+          cpu: 10m
+          memory: 64Mi
+        limits:
+          cpu: 100m
+          memory: 128Mi
 ---
 apiVersion: v1
 kind: Service
